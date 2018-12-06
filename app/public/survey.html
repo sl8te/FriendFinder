@@ -14,17 +14,16 @@
 <body>
     <form>
         <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
-            <small id="emailHelp" class="form-text text-muted"></small>
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Name">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Link to profile image</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Link to Your Image">
+            <label for="inputImage">Link to profile image</label>
+            <input type="text" class="form-control" id="photoImage" placeholder="Enter Link to Your Image">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">You feeling Drake?</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q1">You feeling Drake?</label>
+            <select class="form-control" id="Q1">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -33,8 +32,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Pinneapple on pizza is delicious </label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q2">Pinneapple on pizza is delicious </label>
+            <select class="form-control" id="Q2">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -43,8 +42,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Coke > Pepsi</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q3">Coke > Pepsi</label>
+            <select class="form-control" id="Q3">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral) </option>
@@ -53,8 +52,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1"> IN-N-OUT > Whataburger</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q4"> IN-N-OUT > Whataburger</label>
+            <select class="form-control" id="Q4">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -63,8 +62,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Nuts in brownies </label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q5">Nuts in brownies </label>
+            <select class="form-control" id="Q5">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -73,8 +72,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Batman > Ironman</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q6">Batman > Ironman</label>
+            <select class="form-control" id="Q6">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -83,8 +82,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">The book is always better</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q7">The book is always better</label>
+            <select class="form-control" id="Q7">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -93,8 +92,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">You wear shoes around the house.</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q8">You wear shoes around the house.</label>
+            <select class="form-control" id="Q8">
                 <option>1(strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -103,8 +102,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">You drink your coffee black</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q9">You drink your coffee black</label>
+            <select class="form-control" id="Q9">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -113,8 +112,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">The Beatles > The Rolling Stones</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <label for="Q10">The Beatles > The Rolling Stones</label>
+            <select class="form-control" id="Q10">
                 <option>1 (strongly disagree)</option>
                 <option>2 (disagree)</option>
                 <option>3 (neutral)</option>
@@ -126,12 +125,40 @@
     </form>
 
     <script type="text/javascript">
-        $("#submit").on("click", function (event){
-            event.preventDefault();
+        $("#submit").on("click", function() {
+           
+            function validateForm () {
+
+                //submission of the survey is complete ONLY IF all forms have been answered 
+                var isValid = true;
+                $(".form-control").each(function(){
+                    if($(this).val() == ""){
+                        isValid = false;
+                    }
+                }); 
+                return isValid;
+            }  
+            //Once validateForm is true, put the user's sumbitted answers into an object.
+            if(validateForm()){
+                var userData = {
+                    name: $("#name").val(),
+                    photo: $("#photoImage").val(),
+                    scores: [
+                        $("#Q1").val(),
+                        $("#Q2").val(),
+                        $("#Q3").val(),
+                        $("#Q4").val(),
+                        $("#Q5").val(),
+                        $("#Q6").val(),
+                        $("#Q7").val(),
+                        $("#Q8").val(),
+                        $("#Q9").val(),
+                        $("#Q10").val()
+                    ]
+                };
+
+            }
             
-            var newFriend = {
-                
-            };
         });
     </script>
 </body>
