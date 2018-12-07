@@ -10,7 +10,8 @@ module.exports = function(app){
 
     //POST route "/api/friends" ; this will be used to handle incoming survey calls. Also used to handle the compatibility logic.
     app.post("/api/friends", function(req, res){
+    
         friendsArray.push(req.body);
         res.json();
-    }) 
+    });
 }
