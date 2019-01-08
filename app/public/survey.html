@@ -147,25 +147,13 @@
     </form>
 
     <script type="text/javascript">
-        $("#submit").on("click", function() {
-           
-            function validateForm () {
-
-                //submission of the survey is complete ONLY IF all forms have been answered 
-                var isValid = true;
-                $(".form-control").each(function(){
-                    if($(this).val() == ""){
-                        isValid = false;
-                    }
-                }); 
-                return isValid;
-            }  
-
-            //Once isValid is true, and validateForm is true, put the user's sumbitted answers into an object.
-            if(validateForm()){
+        $("#submit").on("click", function(event) {
+           event.preventDefault();
+        
+            
                 var userData = {
-                    name: $("#name").val(),
-                    photo: $("#photoImage").val(),
+                    name: $("#name").val().trim(),
+                    photo: $("#photoImage").val().trim(),
                     scores: [
                         $("#Q1").val(),
                         $("#Q2").val(),
@@ -179,10 +167,10 @@
                         $("#Q10").val()
                     ]
                 };
-            } else {
-                alert("All forms are required to complete this survey, thanks!");
-            } 
-            
+            $.post("/api/friends", userData)
+            .then(function (data){
+                alert(data);
+            })
         });
     </script>
 </body>
